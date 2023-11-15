@@ -33,38 +33,44 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-// const playerSelection = prompt("Rock, Paper or Scissors?").toLowerCase();
-// const computerSelection = getComputerChoice();
-// console.log(playRound(playerSelection, computerSelection));
-// alert(playRound(playerSelection, computerSelection));
+// Adding some UI
+const rock = document.createElement("button");
+rock.innerText = "ROCK";
+const paper = document.createElement("button");
+paper.innerText = "PAPER";
+const scissors = document.createElement("button");
+scissors.innerText = "SCISSORS";
 
-// Play 5 rounds
+const body = document.querySelector("body");
+body.appendChild(rock);
+body.appendChild(paper);
+body.appendChild(scissors);
 
-function game(count = 5) {
-  let computerScore = 0;
-  let playerScore = 0;
+const buttons = document.querySelectorAll("button");
 
-  for (let i = 0; i < count; i++) {
-    const playerSelection = prompt("Rock, Paper or Scissors?").toLowerCase();
+let computerScore = 0;
+let playerScore = 0;
+
+buttons.forEach((button) => {
+  button.style.margin = "20px";
+
+  button.addEventListener("click", () => {
+    // Get player selection
+    const playerSelection = button.innerText.toLowerCase();
+    console.log(playerSelection);
+
+    // Get computer selection
     const computerSelection = getComputerChoice();
+    console.log(computerSelection);
+
+    // Play a round
     const result = playRound(playerSelection, computerSelection);
-    // console.log(result);
+    console.log(result);
+
     if (result.includes("win")) {
       playerScore++;
     } else if (result.includes("lose")) {
       computerScore++;
-    } else {
-      continue;
     }
-  }
-
-  if (computerScore > playerScore) {
-    alert("Computer wins the game!");
-  } else if (computerScore == playerScore) {
-    alert("Game ends in a tie!");
-  } else {
-    alert("Player wins!");
-  }
-}
-
-game();
+  });
+});
