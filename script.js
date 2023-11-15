@@ -51,26 +51,31 @@ const buttons = document.querySelectorAll("button");
 let computerScore = 0;
 let playerScore = 0;
 
+// Add div to display result
+const gameResult = document.createElement("div");
+body.appendChild(gameResult);
+
 buttons.forEach((button) => {
   button.style.margin = "20px";
 
   button.addEventListener("click", () => {
     // Get player selection
     const playerSelection = button.innerText.toLowerCase();
-    console.log(playerSelection);
 
     // Get computer selection
     const computerSelection = getComputerChoice();
-    console.log(computerSelection);
 
     // Play a round
     const result = playRound(playerSelection, computerSelection);
-    console.log(result);
 
     if (result.includes("win")) {
       playerScore++;
     } else if (result.includes("lose")) {
       computerScore++;
+    } else {
+      alert("It's a tie!");
     }
+
+    gameResult.innerText = `PLAYER ${playerScore} Vs ${computerScore} COMPUTER`;
   });
 });
