@@ -33,38 +33,66 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-// const playerSelection = prompt("Rock, Paper or Scissors?").toLowerCase();
-// const computerSelection = getComputerChoice();
-// console.log(playRound(playerSelection, computerSelection));
-// alert(playRound(playerSelection, computerSelection));
+// Adding UI for gameplay
+const rock = document.createElement("button");
+const paper = document.createElement("button");
+const scissors = document.createElement("button");
 
-// Play 5 rounds
+// Add text to button
+rock.innerText = "Rock";
+paper.innerText = "Paper";
+scissors.innerText = "Scissors";
 
-function game(count = 5) {
-  let computerScore = 0;
-  let playerScore = 0;
+// Get the body
+const body = document.querySelector("body");
 
-  for (let i = 0; i < count; i++) {
-    const playerSelection = prompt("Rock, Paper or Scissors?").toLowerCase();
-    const computerSelection = getComputerChoice();
-    const result = playRound(playerSelection, computerSelection);
-    // console.log(result);
-    if (result.includes("win")) {
-      playerScore++;
-    } else if (result.includes("lose")) {
-      computerScore++;
-    } else {
-      continue;
-    }
-  }
+// Attach buttons to the body
 
-  if (computerScore > playerScore) {
-    alert("Computer wins the game!");
-  } else if (computerScore == playerScore) {
-    alert("Game ends in a tie!");
-  } else {
-    alert("Player wins!");
-  }
+function appends(parent, children) {
+  children.forEach((child) => {
+    parent.appendChild(child);
+  });
 }
 
-game();
+appends(body, [rock, paper, scissors]);
+
+const buttons = document.querySelectorAll("button");
+
+let computerScore = 0;
+let playerScore = 0;
+// Play game with button click
+
+buttons.forEach((button) => {
+  button.style.margin = "20px";
+
+  button.addEventListener("click", () => {
+    const playerSelection = button.innerText.toLowerCase();
+    const computerSelection = getComputerChoice();
+    const result = playRound(playerSelection, computerSelection);
+    // alert(result);
+
+    // Scores
+    if (result.includes("win")) {
+      ++playerScore;
+    } else if (result.includes("lose")) {
+      ++computerScore;
+    }
+
+    // Add text to div
+    scores.innerText = `${result}\nPlayer ${playerScore} vs ${computerScore} Computer`;
+
+    if (playerScore == 5) {
+      alert(`Player wins!\nPlayer ${playerScore} vs ${computerScore} Computer`);
+      location.reload();
+    } else if (computerScore == 5) {
+      alert(
+        `Computer wins!\nPlayer ${playerScore} vs ${computerScore} Computer`
+      );
+
+      location.reload();
+    }
+  });
+});
+
+const scores = document.createElement("div");
+body.appendChild(scores);
