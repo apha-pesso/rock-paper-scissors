@@ -55,6 +55,10 @@ let playerScore = 0;
 const gameResult = document.createElement("div");
 body.appendChild(gameResult);
 
+// Add winner announcement div
+const winner = document.createElement("div");
+body.appendChild(winner);
+
 buttons.forEach((button) => {
   button.style.margin = "20px";
 
@@ -76,13 +80,14 @@ buttons.forEach((button) => {
       alert("It's a tie!");
     }
 
+    // Live score update
+    gameResult.innerText = `PLAYER ${playerScore} Vs ${computerScore} COMPUTER`;
+
     // Announce winner with 5 game win
     if (playerScore == 5) {
-      alert("Player wins!");
+      winner.innerText = "Player wins!";
     } else if (computerScore == 5) {
-      alert("Computer wins!");
+      winner.innerText = "Computer wins!";
     }
-
-    gameResult.innerText = `PLAYER ${playerScore} Vs ${computerScore} COMPUTER`;
   });
 });
