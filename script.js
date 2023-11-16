@@ -76,6 +76,13 @@ buttons.forEach((button) => {
       alert("It's a tie!");
     }
 
+    // Announce winner with 5 game win
+    if (playerScore == 5) {
+      alert("Player wins!");
+    } else if (computerScore == 5) {
+      alert("Computer wins!");
+    }
+
     gameResult.innerText = `PLAYER ${playerScore} Vs ${computerScore} COMPUTER`;
   });
 });
